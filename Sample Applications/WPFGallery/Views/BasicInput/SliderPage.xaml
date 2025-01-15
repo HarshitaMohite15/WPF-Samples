@@ -33,13 +33,26 @@
                         </Grid.ColumnDefinitions>
                         <Slider
                             Width="200"
-                            Margin="0"
-                            HorizontalAlignment="Left"
+                            Margin="20"
+                            HorizontalAlignment="Right"
                             VerticalAlignment="Center"
                             AutomationProperties.Name="Simple"
                             IsSnapToTickEnabled="True"
                             Maximum="100"
                             Minimum="0"
+                            IsDirectionReversed="False"
+                            SelectionStart="40" 
+                            SelectionEnd ="80" 
+                            IsSelectionRangeEnabled="True"
+                            TickPlacement="Both"
+                            TickFrequency="10"
+                            Height="10"
+                            MinHeight="50"
+                            MaxHeight="50"
+                            MinWidth="100"
+                            MaxWidth="500"
+                            Opacity="0.5"
+                            Visibility="Visible"
                             Value="{Binding ViewModel.SimpleSliderValue, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:SliderPage}, Mode=TwoWay}" />
                         <Grid Grid.Column="1">
                             <StackPanel VerticalAlignment="Center">
