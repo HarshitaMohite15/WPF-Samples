@@ -25,7 +25,30 @@
                     Margin="10"
                     HeaderText="A simple RichTextBox"
                     XamlCode="&lt;RichTextBox /&gt;">
-                    <RichTextBox AutomationProperties.Name="simple rich text editor" />
+                    <RichTextBox AutomationProperties.Name="simple rich text editor"
+                                 CaretBrush="Red"
+                                 Background="Black"
+                                 Foreground="White"
+                                 Margin="30"
+                                 Padding="20"
+                                 BorderThickness="5"
+                                 BorderBrush="BlueViolet"
+                                 FontFamily="Agency FB"
+                                 FontSize="20"
+                                 FontWeight="Bold"
+                                 FontStyle="Italic"
+                                 Height="200px"
+                                 Width="200px"
+                                 MinWidth="50px"
+                                 MinHeight="50px"
+                                 MaxWidth="250px"
+                                 MaxHeight="250px"
+                                 FlowDirection="RightToLeft"
+                                 VerticalContentAlignment="Center"
+                                 HorizontalAlignment="Right"
+                                 Opacity="0.5"
+                                 Visibility="Visible"
+                                 IsEnabled="True" />
                 </controls:ControlExample>
             </StackPanel>
         </ScrollViewer>
