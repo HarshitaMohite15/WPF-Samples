@@ -11,7 +11,7 @@ namespace WPFGallery.Views
     /// Interaction logic for Button.xaml
     /// </summary>
     public partial class ButtonPage : Page
-    {
+    {       
         public ButtonPageViewModel ViewModel { get; }
 
         public ButtonPage(ButtonPageViewModel viewModel)
@@ -19,6 +19,11 @@ namespace WPFGallery.Views
             ViewModel = viewModel;
             DataContext = this;
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Output.Content= "Button clicked!";
         }
     }
 }

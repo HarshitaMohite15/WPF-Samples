@@ -39,12 +39,17 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Button
+                            x:Name="StandardWpfButton"
                             Grid.Column="0"
                             AutomationProperties.Name="Standard WPF"
-                            Content="Standard WPF button"
-                            IsEnabled="{Binding ViewModel.IsSimpleButtonEnabled, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:ButtonPage}, Mode=OneWay}" />
+                            Content="Standard WPF button"                           
+                            IsEnabled="{Binding ViewModel.IsSimpleButtonEnabled, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:ButtonPage}, Mode=OneWay}" Click="Button_Click" />
+                        <Label Name="Output"
+                            Content=""
+                            VerticalAlignment="Center"
+                            Margin="479,0,11,0" />
                         <CheckBox
-                            Grid.Column="1"
+                            Grid.Column="2"
                             Command="{Binding ViewModel.SimpleButtonCheckboxCheckedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:ButtonPage}, Mode=OneWay}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Mode=OneWay}"
                             Content="Disable button" />
@@ -82,7 +87,9 @@
                     Margin="10,32,10,10"
                     HeaderText="WPF Accent Button"
                     XamlCode="&lt;Button Style=&quot;{DynamicResource AccentButtonStyle}&quot; Content=&quot;WPF Accent Button&quot; /&gt;">
-                    <Button AutomationProperties.Name="WPF Accent" Style="{DynamicResource AccentButtonStyle}">
+                    <Button  x:Name="AccentWpfButton" 
+                             AutomationProperties.Name="WPF Accent" 
+                             Style="{DynamicResource AccentButtonStyle}">
                         <StackPanel Orientation="Horizontal">
                             <!--<SymbolIcon Symbol="Fluent24" />-->
                             <TextBlock Text="WPF Accent Button" />
