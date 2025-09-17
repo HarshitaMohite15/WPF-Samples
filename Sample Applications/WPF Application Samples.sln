@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36202.13 d17.14
+# Visual Studio 14
+VisualStudioVersion = 14.0.23103.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConcentricRingsDemo", "ConcentricRingsDemo\ConcentricRingsDemo.csproj", "{0C7755BD-E5D1-4CB1-8271-445863408B5B}"
 EndProject
@@ -56,8 +56,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoViewerDemo", "VideoViewerDemo\VideoViewerDemo.csproj", "{439F91F2-9A8D-41EF-B9BB-D7CB2BCF3F10}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlToXamlDemo", "HtmlToXamlDemo\HtmlToXamlDemo.csproj", "{1AF5ED2C-BB8A-4B12-8CB5-8C8F2E838908}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorDemo.Tests", "..\Tests\UnitTest\CalculatorDemo.Tests\CalculatorDemo.Tests.csproj", "{F18E39E7-3313-432E-9654-A06B2C159350}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -169,10 +167,6 @@ Global
 		{1AF5ED2C-BB8A-4B12-8CB5-8C8F2E838908}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AF5ED2C-BB8A-4B12-8CB5-8C8F2E838908}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AF5ED2C-BB8A-4B12-8CB5-8C8F2E838908}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F18E39E7-3313-432E-9654-A06B2C159350}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F18E39E7-3313-432E-9654-A06B2C159350}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F18E39E7-3313-432E-9654-A06B2C159350}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F18E39E7-3313-432E-9654-A06B2C159350}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -180,8 +174,5 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D1729F17-99A5-45AF-AB38-72FA6ECCE609} = {07258053-D6F1-4D8F-B3E4-A93423EFDF78}
 		{558EEE03-6927-4FE6-AEB6-972769960849} = {07258053-D6F1-4D8F-B3E4-A93423EFDF78}
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {1A52D1BB-B210-4597-870E-AE6ACB8E4577}
 	EndGlobalSection
 EndGlobal
