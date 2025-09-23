@@ -12,7 +12,7 @@
         <TextBlock FontSize="20" FontFamily="Palatino Linotype" FontWeight="Bold" DockPanel.Dock="Top">FlowDocument Properties Sample</TextBlock>
         <TextBlock TextWrapping="Wrap" FontFamily="Palatino Linotype" DockPanel.Dock="Top" Margin="10">Use the button controls to the left and right to adjust or read the various property values of the FlowDocument element below.</TextBlock>
 
-        <StackPanel Orientation="Vertical" Margin="10,0,10,0" DockPanel.Dock="Left">
+        <StackPanel Name="btns" Orientation="Vertical" Margin="10,0,10,0" DockPanel.Dock="Left">
             <Button Background="Blue" Foreground="White" FontFamily="Palatino Linotype" Margin="10,0,0,5" Click="MakebgVisible">Set Background</Button>
             <Button Background="Blue" Foreground="White" FontFamily="Palatino Linotype" Margin="10,0,0,5" Click="MakecgVisible">Set ColumnGap</Button>
             <Button Background="Blue" Foreground="White" FontFamily="Palatino Linotype" Margin="10,0,0,5" Click="MakecrbVisible">Set ColumnRuleBrush</Button>
