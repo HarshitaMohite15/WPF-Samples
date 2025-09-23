@@ -34,7 +34,7 @@
         </StackPanel.Resources>
 
         <HeaderedContentControl Header="Description">
-            <TextBox Width="150" Text="{Binding Path=Description, Mode=TwoWay}"/>
+            <TextBox Name="Description" Width="150" Text="{Binding Path=Description, Mode=TwoWay}"/>
         </HeaderedContentControl>
         <HeaderedContentControl Header="Price">
             <TextBox Width="150" Text="{Binding Path=Price, Mode=TwoWay}"/>
@@ -43,7 +43,7 @@
             <TextBox Width="150" Text="{Binding Path=OfferExpires, StringFormat=d, Mode=TwoWay}"/>
         </HeaderedContentControl>
         <StackPanel Orientation="Horizontal">
-            <Button IsDefault="True" Click="Submit_Click">_Submit</Button>
+            <Button Name="_Submit" IsDefault="True" Click="Submit_Click">_Submit</Button>
             <Button IsCancel="True">_Cancel</Button>
         </StackPanel>
     </StackPanel>
