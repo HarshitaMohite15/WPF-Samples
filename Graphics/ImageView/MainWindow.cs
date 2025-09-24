@@ -43,6 +43,8 @@ namespace ImageView
                     var id = new BitmapImage(selLoc);
                     var currFileInfo = new FileInfo(selection);
                     currentImage.Source = id;
+                    //Set AutomationProperties.Name to the image path on the currentImage control when you load an image for testing purposes
+                    System.Windows.Automation.AutomationProperties.SetName(currentImage, selection);
 
                     //Setup Info Text
                     imageSize.Text = id.PixelWidth + " x " + id.PixelHeight;
