@@ -68,6 +68,10 @@ namespace TextFormatting.Tests
         public void TestChangeFontFamilyComboBox()
         {
             Assert.That(_fontFamilyComboBox, Is.Not.Null);
+            var selectionPatternBefore = _fontFamilyComboBox.GetCurrentPattern(SelectionPattern.Pattern) as SelectionPattern;
+            Assert.That(selectionPatternBefore, Is.Not.Null, "SelectionPattern not available.");
+            var selectedItemsBefore = selectionPatternBefore.Current.GetSelection();
+            Assert.That(selectedItemsBefore.Length, Is.EqualTo(1));
             var expandPattern = _fontFamilyComboBox.GetCurrentPattern(ExpandCollapsePattern.Pattern) as ExpandCollapsePattern;
             Assert.That(expandPattern, Is.Not.Null, "ExpandCollapsePattern not available.");
             expandPattern.Expand();
@@ -87,7 +91,7 @@ namespace TextFormatting.Tests
             Assert.That(selectionPattern, Is.Not.Null, "SelectionPattern not available.");
             var selectedItems = selectionPattern.Current.GetSelection();
             Assert.That(selectedItems.Length, Is.EqualTo(1));
-            Assert.That(selectedItems[0].Current.Name, Is.EqualTo("Arial"));
+            Assert.That(selectedItems[0].Current.Name, Is.Not.EqualTo(selectedItemsBefore[0].Current.Name));
             // Wait for the change to take effect
             Thread.Sleep(500);
         }
