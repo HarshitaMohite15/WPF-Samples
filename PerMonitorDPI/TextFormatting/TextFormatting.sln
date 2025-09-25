@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFormatting", "TextFormatting.csproj", "{D066FFD3-368A-671C-7B69-E6C05ADDAFD2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFormatting.Tests", "..\..\Tests\UnitTests\TextFormatting.Tests\TextFormatting.Tests.csproj", "{B2186CF0-DDE8-B2DD-0322-90E30E5C6A36}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D066FFD3-368A-671C-7B69-E6C05ADDAFD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D066FFD3-368A-671C-7B69-E6C05ADDAFD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D066FFD3-368A-671C-7B69-E6C05ADDAFD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D066FFD3-368A-671C-7B69-E6C05ADDAFD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2186CF0-DDE8-B2DD-0322-90E30E5C6A36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2186CF0-DDE8-B2DD-0322-90E30E5C6A36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2186CF0-DDE8-B2DD-0322-90E30E5C6A36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2186CF0-DDE8-B2DD-0322-90E30E5C6A36}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4DF7140D-1623-49E0-9EA6-A49DBDC54846}
+	EndGlobalSection
+EndGlobal
