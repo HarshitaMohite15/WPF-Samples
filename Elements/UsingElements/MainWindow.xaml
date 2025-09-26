@@ -31,7 +31,7 @@
             <TabItem MouseLeftButtonUp="GetItem">
                 <TabItem.Header>Get Item At Index Position [0]</TabItem.Header>
             </TabItem>
-            <TabItem MouseLeftButtonUp="GetCount">
+            <TabItem x:Name="CountTab" MouseLeftButtonUp="GetCount">
                 <TabItem.Header>UIElement Count</TabItem.Header>
             </TabItem>
         </TabControl>

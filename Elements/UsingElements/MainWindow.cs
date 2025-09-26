@@ -18,22 +18,14 @@ namespace UsingElements
         public MainWindow()
         {
             InitializeComponent();
-            AddTab.AddHandler(Selector.SelectedEvent, new RoutedEventHandler(AddTab_Selected));
         }
 
-        private void AddTab_Selected(object sender, RoutedEventArgs e)
-        {
-            if (sender == AddTab)
-            {
-                sp1.Children.Clear();
-                _btn = new Button { Content = "New Button" };
-                sp1.Children.Add(_btn);
-            }
-        }
         private void AddButton(object sender, MouseButtonEventArgs e)
         {
             sp1.Children.Clear();
-            _btn = new Button {Content = "New Button"};
+            //added Name property to Button and registered it with the current namescope
+            _btn = new Button {Content = "New Button", Name = "NewButton" };
+            this.RegisterName(_btn.Name, _btn);
             sp1.Children.Add(_btn);
         }
 
