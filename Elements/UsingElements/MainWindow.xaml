@@ -9,7 +9,7 @@
     <StackPanel>
         <TextBlock Name="txt" FontSize="16">UI Element Collection - Methods</TextBlock>
         <TabControl>
-            <TabItem MouseLeftButtonUp="AddButton">
+            <TabItem x:Name="AddTab" MouseLeftButtonUp="AddButton">
                 <TabItem.Header>Add Control</TabItem.Header>
             </TabItem>
             <TabItem MouseLeftButtonUp="RemoveButton">

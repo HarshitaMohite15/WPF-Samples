@@ -3,6 +3,7 @@
 
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
 namespace UsingElements
@@ -17,8 +18,18 @@ namespace UsingElements
         public MainWindow()
         {
             InitializeComponent();
+            AddTab.AddHandler(Selector.SelectedEvent, new RoutedEventHandler(AddTab_Selected));
         }
 
+        private void AddTab_Selected(object sender, RoutedEventArgs e)
+        {
+            if (sender == AddTab)
+            {
+                sp1.Children.Clear();
+                _btn = new Button { Content = "New Button" };
+                sp1.Children.Add(_btn);
+            }
+        }
         private void AddButton(object sender, MouseButtonEventArgs e)
         {
             sp1.Children.Clear();
