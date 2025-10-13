@@ -79,19 +79,32 @@ namespace DialogBox.Tests
                 }
                 Assert.That(fontDialog, Is.Not.Null, "Font dialog not found");
                
-                // Find the font family ComboBox and select "Arial"
+                // Find the font family ComboBox 
                 var fontFamilyCombo = fontDialog.FindFirst(TreeScope.Descendants,
                     new PropertyCondition(AutomationElement.AutomationIdProperty, "fontFamilyListBox"));
                 Assert.That(fontFamilyCombo, Is.Not.Null, "fontFamilyListBox not found");
 
-                var arialItem = fontFamilyCombo.FindFirst(TreeScope.Descendants,
-                   new PropertyCondition(AutomationElement.NameProperty, "Arial"));
-                Assert.That(arialItem, Is.Not.Null, "Arial font not found");
-                var selectPattern = arialItem.GetCurrentPattern(SelectionItemPattern.Pattern) as SelectionItemPattern;
-                selectPattern?.Select();
-               
-                // Click OK
-                var okButton = fontDialog.FindFirst(TreeScope.Descendants,
+                //check for 64 bit or 32 bit architecture and select font accordingly
+                if (Environment.Is64BitProcess)
+                {
+                    //x64
+                    var arialItem = fontFamilyCombo.FindFirst(TreeScope.Descendants,
+                       new PropertyCondition(AutomationElement.NameProperty, "Arial"));
+                    Assert.That(arialItem, Is.Not.Null, "Arial font not found");
+                    var selectPattern = arialItem.GetCurrentPattern(SelectionItemPattern.Pattern) as SelectionItemPattern;
+                    selectPattern?.Select();
+                }
+                else
+                {
+                    //x86
+                    var aharoniItem = fontFamilyCombo.FindFirst(TreeScope.Descendants,
+                     new PropertyCondition(AutomationElement.NameProperty, "Aharoni"));
+                    Assert.That(aharoniItem, Is.Not.Null, "Aharoni font not found");
+                    var selectPattern = aharoniItem.GetCurrentPattern(SelectionItemPattern.Pattern) as SelectionItemPattern;
+                    selectPattern?.Select();
+                }
+                    // Click OK
+                    var okButton = fontDialog.FindFirst(TreeScope.Descendants,
                     new PropertyCondition(AutomationElement.AutomationIdProperty, "okButton"));
                 Assert.That(okButton, Is.Not.Null, "OK button not found");
                 var invoke = okButton.GetCurrentPattern(InvokePattern.Pattern) as InvokePattern;
@@ -109,7 +122,6 @@ namespace DialogBox.Tests
             Assert.That(docTextBox, Is.Not.Null);
             Assert.That(docTextBox.FontFamily.Source, Is.EqualTo("Arial"));
             Assert.That(docTextBox.FontFamily.Source, Is.Not.EqualTo(defaultFont));
-            //Assert.That(docTextBox.FontSize, Is.EqualTo(20));
         }
      
     }
