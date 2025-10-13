@@ -120,7 +120,7 @@ namespace DialogBox.Tests
             automationThread.Join();
 
             Assert.That(docTextBox, Is.Not.Null);
-            Assert.That(docTextBox.FontFamily.Source, Is.EqualTo("Arial"));
+            Assert.That(docTextBox.FontFamily.Source, Is.EqualTo("Aharoni"));
             Assert.That(docTextBox.FontFamily.Source, Is.Not.EqualTo(defaultFont));
         }
      
