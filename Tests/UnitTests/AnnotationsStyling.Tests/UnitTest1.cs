@@ -15,7 +15,7 @@ namespace AnnotationsStyling.Tests
         public void Setup()
         {
             // Adjust the path to your application's EXE as needed
-            var exePath = Path.GetFullPath(@"..\..\..\..\..\UnitTests\AnnotationsStyling.Tests\bin\Debug\net10.0-windows\AnnotationsStyling.exe");
+            var exePath = Path.GetFullPath(@"AnnotationsStyling.exe");
             _appProcess = Process.Start(exePath);
 
             // Wait for main window to be ready
