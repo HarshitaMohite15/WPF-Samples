@@ -18,8 +18,19 @@ namespace InsertTextTarget.Tests
              process = Process.Start(appPath);
             Thread.Sleep(1000);
 
-            // Get the main window
-             mainWindow = AutomationElement.FromHandle(process.MainWindowHandle);
+            process.WaitForInputIdle();
+            for (int i = 0; i < 20; i++)
+            {
+                if (process.MainWindowHandle != IntPtr.Zero)
+            {
+                 mainWindow = AutomationElement.FromHandle(process.MainWindowHandle);
+                    if (mainWindow != null)
+                    break;
+            }
+                Thread.Sleep(500);
+        }
+
+        Assert.That(mainWindow, Is.Not.Null, "Main window not found.");
         }
 
         [TearDown]
