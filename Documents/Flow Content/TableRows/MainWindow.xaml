@@ -9,7 +9,7 @@
     <FlowDocumentScrollViewer HorizontalAlignment="Left" VerticalAlignment="Top">
         <FlowDocument>
             <Paragraph>
-                <Button  Click="AddRow">Add a New TableRow to the Table</Button>
+                <Button Name="btnAddRow" Click="AddRow">Add a New TableRow to the Table</Button>
             </Paragraph>
 
             <Table CellSpacing="5" Name="table1">
