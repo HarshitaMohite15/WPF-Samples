@@ -31,10 +31,10 @@
             <Menu AutomationProperties.Name="Expense It Demo" DockPanel.Dock="Top">
 
                 <!-- File Menu-->
-                <MenuItem Header="_File">
-                    <MenuItem Command="local:MainWindow.CreateExpenseReportCommand"/>
+                <MenuItem Header="_File" AutomationProperties.Name="File Menu">
+                    <MenuItem Command="local:MainWindow.CreateExpenseReportCommand" AutomationProperties.Name="Create Expense Report"/>
                     <Separator />
-                    <MenuItem Command="local:MainWindow.ExitCommand"/>
+                    <MenuItem Command="local:MainWindow.ExitCommand" AutomationProperties.Name="Exit"/>
                 </MenuItem>
 
                 <!-- Help Menu-->
