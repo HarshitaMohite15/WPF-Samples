@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36811.4 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brushes", "Brushes.csproj", "{6F241B86-342A-3B2F-1335-6AB7A8309222}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brushes.Tests", "..\..\Tests\UnitTests\Brushes.Tests\Brushes.Tests.csproj", "{4CAA5D2B-B17E-4E2A-8082-992BCE2348DE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6F241B86-342A-3B2F-1335-6AB7A8309222}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F241B86-342A-3B2F-1335-6AB7A8309222}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F241B86-342A-3B2F-1335-6AB7A8309222}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F241B86-342A-3B2F-1335-6AB7A8309222}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CAA5D2B-B17E-4E2A-8082-992BCE2348DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CAA5D2B-B17E-4E2A-8082-992BCE2348DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CAA5D2B-B17E-4E2A-8082-992BCE2348DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CAA5D2B-B17E-4E2A-8082-992BCE2348DE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D8AFC721-4150-4B97-90FB-82B06D90E680}
+	EndGlobalSection
+EndGlobal

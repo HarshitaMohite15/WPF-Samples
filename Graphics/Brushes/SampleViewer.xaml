@@ -51,9 +51,10 @@
 
       <Border DockPanel.Dock="Left" BorderBrush="LightGray" BorderThickness="0,0,2,0"
       Background="{StaticResource GlassBrushResource}">
-      <Expander ExpandDirection="Left">
-        <Expander.Header>
-          <TextBlock Foreground="#99000000"
+            <!-- added Name and AutomationId to the Expander so UI Automation can find and click it -->
+            <Expander Name="LeftExpander" AutomationProperties.AutomationId="LeftExpander" ExpandDirection="Left">
+                <Expander.Header>
+                    <TextBlock Foreground="#99000000"
             FontFamily="Verdana" FontWeight="Bold" FontSize="24pt" 
             Text="Contents">
             <TextBlock.LayoutTransform>
