@@ -10,7 +10,11 @@ namespace ContextMenuOpening
     public partial class Pane
     {
         private bool _flagForCustomContextMenu;
-
+        //added for test purposes
+        public Pane()
+        {
+            InitializeComponent();
+        }
         private ContextMenu BuildMenu()
         {
             var theMenu = new ContextMenu();
