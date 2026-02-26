@@ -1,4 +1,4 @@
-﻿using System.Configuration;
+using System.Configuration;
 using System.Data;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -57,12 +57,18 @@ public partial class App : Application
             services.AddTransient<CanvasPageViewModel>();
             services.AddTransient<ExpanderPage>();
             services.AddTransient<ExpanderPageViewModel>();
+            services.AddTransient<GridPage>();
+            services.AddTransient<GridPageViewModel>();
             services.AddTransient<ResizeGripPage>();
             services.AddTransient<ResizeGripPageViewModel>();
             services.AddTransient<GridSplitterPage>();
             services.AddTransient<GridSplitterPageViewModel>();
             services.AddTransient<GroupBoxPage>();
             services.AddTransient<GroupBoxPageViewModel>();
+            services.AddTransient<StackPanelPage>();
+            services.AddTransient<StackPanelPageViewModel>();
+            services.AddTransient<BorderPage>();
+            services.AddTransient<BorderPageViewModel>();
             services.AddTransient<ImagePage>();
             services.AddTransient<ImagePageViewModel>();
             services.AddTransient<DataGridPage>();
@@ -111,12 +117,26 @@ public partial class App : Application
             services.AddTransient<SamplesPageViewModel>();
             services.AddTransient<DesignGuidancePage>();
             services.AddTransient<DesignGuidancePageViewModel>();
+            services.AddTransient<SystemPage>();
+            services.AddTransient<SystemPageViewModel>();
+            services.AddTransient<MessageBoxPage>();
+            services.AddTransient<MessageBoxPageViewModel>();
+            services.AddTransient<FileAndFolderDialogsPage>();
+            services.AddTransient<FileAndFolderDialogsPageViewModel>();
+            services.AddTransient<ClipboardPage>();
+            services.AddTransient<ClipboardPageViewModel>();
 
             services.AddTransient<UserDashboardPage>();
             services.AddTransient<UserDashboardPageViewModel>();
 
             services.AddTransient<TypographyPage>();
             services.AddTransient<TypographyPageViewModel>();
+
+            services.AddTransient<SpacingPage>();
+            services.AddTransient<SpacingPageViewModel>();
+
+            services.AddTransient<GeometryPage>();
+            services.AddTransient<GeometryPageViewModel>();
 
             services.AddSingleton<IconsPage>();
             services.AddSingleton<IconsPageViewModel>();
