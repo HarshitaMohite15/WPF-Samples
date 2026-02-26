@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseItIntro", "Walkthrou
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComplexLayout.Tests", "..\Tests\UnitTests\ComplexLayout.Tests\ComplexLayout.Tests.csproj", "{91207466-0D39-B66E-5F02-F5F5D6D17460}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlsAndLayout.Tests", "..\Tests\UnitTests\ControlsAndLayout.Tests\ControlsAndLayout.Tests.csproj", "{E04C55E0-53C9-4FAE-933C-D465C71F2842}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
