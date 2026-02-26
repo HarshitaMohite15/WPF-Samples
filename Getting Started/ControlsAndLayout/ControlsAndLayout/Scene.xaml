@@ -68,17 +68,17 @@
                         <Rectangle Fill="sc#1.000000, 0.769689, 0.831936, 1.000000" RadiusX="10" RadiusY="10" Stroke="sc#1.000000, 0.250141, 0.333404, 0.884413" StrokeDashArray="2" />
                         <DockPanel Margin="7" LastChildFill="False">
                             <TextBlock Margin="0,0,0,10"   Text="Sample Library" Foreground="sc#1.000000, 0.250141, 0.333404, 0.884413" TextAlignment="center"   FontWeight="Bold" FontSize="14pt"   DockPanel.Dock="top"  />
-                            <Expander  Margin="0,0,0,10" DockPanel.Dock="top" Background="white" FocusVisualStyle="{x:Null}">
+                            <Expander  Margin="0,0,0,10" DockPanel.Dock="top" Background="white" FocusVisualStyle="{x:Null}" Expanded="Expander_Expanded">
                                 <Expander.Header>
                                     <TextBlock Margin="10,0,0,0"  FontFamily="Calibri" FontWeight="bold" >Layout</TextBlock>
                                 </Expander.Header>
                                 <ListBox Name="LayoutListBox" DataContext="{Binding Source={StaticResource SamplesList}, XPath=/Samples/Category[1]/Sample}"    ItemsSource="{Binding}" SelectionChanged="HandleSelectionChanged"  Style="{DynamicResource SamplesListBox}"  IsSynchronizedWithCurrentItem="True"  />
                             </Expander>
-                            <Expander  Margin="0,0,0,10" DockPanel.Dock="top" Background="white" FocusVisualStyle="{x:Null}">
+                            <Expander  Margin="0,0,0,10" DockPanel.Dock="top" Background="white" FocusVisualStyle="{x:Null}" Expanded="Expander_Expanded">
                                 <Expander.Header>
                                     <TextBlock Margin="10,0,0,0"  FontFamily="Calibri" FontWeight="bold"  TextTrimming="WordEllipsis">Controls</TextBlock>
                                 </Expander.Header>
-                                <ListBox MaxHeight="300"  DataContext="{Binding Source={StaticResource SamplesList}, XPath=/Samples/Category[2]/Sample}" ItemsSource="{Binding}" SelectionChanged="HandleSelectionChanged" Style="{DynamicResource SamplesListBox}"  IsSynchronizedWithCurrentItem="True" SelectedValue="X" />
+                                <ListBox Name="ControlsListBox" MaxHeight="300"  DataContext="{Binding Source={StaticResource SamplesList}, XPath=/Samples/Category[2]/Sample}" ItemsSource="{Binding}" SelectionChanged="HandleSelectionChanged" Style="{DynamicResource SamplesListBox}"  IsSynchronizedWithCurrentItem="True" SelectedValue="X" />
                             </Expander>
                         </DockPanel>
                     </Grid>

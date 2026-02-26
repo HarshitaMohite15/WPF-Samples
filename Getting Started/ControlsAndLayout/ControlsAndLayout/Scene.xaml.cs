@@ -18,10 +18,50 @@ namespace ControlsAndLayout
         {
             if (sender == null)
                 return;
-
-            Details.DataContext = (sender as ListBox).DataContext;
+            var lb = sender as ListBox;
+            if (lb == null)
+                return;
+            // Use the selected item as the Details DataContext so bindings like XPath=@Title
+            // resolve against the selected sample node. This also avoids showing the whole
+            // collection as the details context.
+            if (lb.SelectedItem != null)
+                Details.DataContext = lb.SelectedItem;
+            // Clear selection in the other ListBox so only the current expander's selection remains.
+            if (lb == LayoutListBox)
+            {
+                ClearListBoxSelection(ControlsListBox);
+            }
+            else if (lb == ControlsListBox)
+            {
+                ClearListBoxSelection(LayoutListBox);
+            }
         }
 
+        private static void ClearListBoxSelection(ListBox other)
+        {
+            if (other == null)
+                return;
+
+            // Clear CollectionView current item (prevents implicit current item via XmlDataProvider)
+            var view = System.Windows.Data.CollectionViewSource.GetDefaultView(other.ItemsSource ?? other.Items);
+            view?.MoveCurrentToPosition(-1);
+
+            // Clear visual selection
+            other.SelectedIndex = -1;
+        }
+        //to clear the selection when the expander is expanded
+        private void Expander_Expanded(object sender, RoutedEventArgs e)
+        {
+            if (sender is not Expander expander)
+                return;
+            // If the expander's direct content is the ListBox, clear it.
+            if (expander.Content is ListBox lb)
+            {
+                var view = System.Windows.Data.CollectionViewSource.GetDefaultView(lb.ItemsSource ?? lb.Items);
+                view?.MoveCurrentToPosition(-1);
+                lb.SelectedIndex = -1;
+            }
+        }
         protected void HandleTextChanged(object sender, TextChangedEventArgs me)
         {
             if (RealTimeUpdate) ParseCurrentBuffer();
