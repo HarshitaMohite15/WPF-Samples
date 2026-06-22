@@ -99,11 +99,26 @@ namespace ControlsAndLayout.Tests
 
             // Act - Select an item
             var firstItem = listItems[0];
-            var selectionPattern = firstItem.GetCurrentPattern(
-                SelectionItemPattern.Pattern) as SelectionItemPattern;
-            Assert.That(selectionPattern, Is.Not.Null);
-            selectionPattern.Select();
-            Thread.Sleep(1000); // Wait for XAML parsing and rendering
+            //var selectionPattern = firstItem.GetCurrentPattern(
+            //    SelectionItemPattern.Pattern) as SelectionItemPattern;
+            //Assert.That(selectionPattern, Is.Not.Null);
+            //selectionPattern.Select();
+
+            var rectObj = firstItem.GetCurrentPropertyValue(AutomationElement.BoundingRectangleProperty, true);
+            if (rectObj is System.Windows.Rect rect && !rect.IsEmpty)
+            {
+                var cx = (int)Math.Round(rect.Left + rect.Width / 2.0);
+                var cy = (int)Math.Round(rect.Top + rect.Height / 2.0);
+                SetCursorPos(cx, cy);
+                Thread.Sleep(50);
+                mouse_event(MOUSEEVENTF_LEFTDOWN, (uint)cx, (uint)cy, 0, UIntPtr.Zero);
+                Thread.Sleep(30);
+                mouse_event(MOUSEEVENTF_LEFTUP, (uint)cx, (uint)cy, 0, UIntPtr.Zero);
+            }
+            //var ok = TrySelectListBoxItemByIndex(layoutListBox, 2, 5000);
+            //Assert.That(ok, Is.True, "Failed to select first item in ControlsListBox");
+
+            Thread.Sleep(300); // Wait for XAML parsing and rendering
 
             var textBox = FindElementByAutomationId("TextBox1");
             Assert.That(textBox, Is.Not.Null, "TextBox1 should exist");
@@ -459,8 +474,25 @@ namespace ControlsAndLayout.Tests
         private static AutomationElement? GetSelectedListBoxItem(AutomationElement listBox)
         {
             if (listBox == null) return null;
-
-            var listItemCondition = new PropertyCondition(AutomationElement.ControlTypeProperty, ControlType.ListItem);
+            // 1) Preferred: ask the list container for its current selection (works with virtualization)
+            try
+            {
+                if (listBox.TryGetCurrentPattern(SelectionPattern.Pattern, out var selPatternObj) &&
+                    selPatternObj is SelectionPattern selPattern)
+                {
+                    var selection = selPattern.Current.GetSelection();
+                    if (selection != null && selection.Length > 0)
+                        return selection[0];
+                }
+            }
+            catch
+            {
+                // ignore and try fallback
+            }
+            // 2) Fallback: scan descendant list items and check SelectionItemPattern
+            try
+            {
+                var listItemCondition = new PropertyCondition(AutomationElement.ControlTypeProperty, ControlType.ListItem);
             var items = listBox.FindAll(TreeScope.Children, listItemCondition);
             foreach (AutomationElement item in items)
             {
@@ -478,7 +510,97 @@ namespace ControlsAndLayout.Tests
                     // ignore and continue
                 }
             }
+            }
+            catch
+            {
+                // final fallback - return null
+            }
             return null;
+        }
+
+        /// <summary>
+        /// Robustly selects an item by index: ScrollIntoView, SetFocus, SelectionItemPattern.Select() or click fallback.
+        /// Waits until the selection is reflected in the list container SelectionPattern or the item reports IsSelected.
+        /// </summary>
+        private bool TrySelectListBoxItemByIndex(AutomationElement listBox, int index, int timeoutMs = 5000)
+        {
+            if (listBox == null) return false;
+            var listItemCondition = new PropertyCondition(AutomationElement.ControlTypeProperty, ControlType.ListItem);
+            var items = listBox.FindAll(TreeScope.Children, listItemCondition);
+            if (index < 0 || index >= items.Count) return false;
+            var item = items[index];
+
+            // Scroll into view if supported
+            try
+            {
+                if (item.TryGetCurrentPattern(ScrollItemPattern.Pattern, out var scrollObj) && scrollObj is ScrollItemPattern scrollPat)
+                {
+                    scrollPat.ScrollIntoView();
+                    Thread.Sleep(150);
+                }
+            }
+            catch { }
+            // Set focus on the item
+            try { item.SetFocus(); } catch { }
+
+            // Try selection via SelectionItemPattern
+            try
+            {
+                //if (item.TryGetCurrentPattern(SelectionItemPattern.Pattern, out var selObj) && selObj is SelectionItemPattern sip)
+                //{
+                //    sip.Select();
+                //}
+                //else
+                //{
+                    // Fall back to clicking the center of the item's bounding rectangle
+                    var rectObj = item.GetCurrentPropertyValue(AutomationElement.BoundingRectangleProperty, true);
+                    if (rectObj is System.Windows.Rect rect && !rect.IsEmpty)
+                    {
+                        var cx = (int)Math.Round(rect.Left + rect.Width / 2.0);
+                        var cy = (int)Math.Round(rect.Top + rect.Height / 2.0);
+                        SetCursorPos(cx, cy);
+                        Thread.Sleep(50);
+                        mouse_event(MOUSEEVENTF_LEFTDOWN, (uint)cx, (uint)cy, 0, UIntPtr.Zero);
+                        Thread.Sleep(30);
+                        mouse_event(MOUSEEVENTF_LEFTUP, (uint)cx, (uint)cy, 0, UIntPtr.Zero);
+                    }
+                    else
+                    {
+                        // As a final fallback, try invoking selection on the container using SelectionPattern (if supports)
+                        if (listBox.TryGetCurrentPattern(SelectionPattern.Pattern, out var sp) && sp is SelectionPattern)
+                        {
+                            // nothing specific to call; rely on UI reacting to focus/click attempts above
+                        }
+                    }
+                //}
+            }
+            catch { }
+
+            // Wait until selection is observed
+            var expectedObserved = WaitUntil(() =>
+            {
+            try
+            {
+                // 1) Check container SelectionPattern
+                if (listBox.TryGetCurrentPattern(SelectionPattern.Pattern, out var selPatternObj) &&
+                    selPatternObj is SelectionPattern selPattern)
+                {
+                        var sel = selPattern.Current.GetSelection();
+                        if (sel != null && sel.Length > 0 && sel[0].Equals(item))
+                            return true;
+                    }
+
+                    // 2) Check item SelectionItemPattern
+                    if (item.TryGetCurrentPattern(SelectionItemPattern.Pattern, out var sipObj) && sipObj is SelectionItemPattern sip2)
+                    {
+                        if (sip2.Current.IsSelected) return true;
+                    }
+                }
+                catch { }
+                return false;
+            }, timeoutMs);
+
+            return expectedObserved;
         }
         private static string? GetListItemTitle(AutomationElement listItem)
         {

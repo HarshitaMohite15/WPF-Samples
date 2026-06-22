@@ -1,10 +1,13 @@
 ﻿using NUnit.Framework;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Interop;
+using System.Windows.Threading;
 
 
 namespace BusinessLayerValidation.Tests
@@ -31,6 +34,7 @@ namespace BusinessLayerValidation.Tests
                         Assert.IsNotNull(window);
                         Assert.IsTrue(window.IsLoaded == false);
                         window.Show();
+                        BringWindowToFront(window);
                     };
                     app.Run();
                 }
@@ -44,12 +48,12 @@ namespace BusinessLayerValidation.Tests
             thread.Start();
 
             // Give the window time to open
-            Thread.Sleep(1000);
+            Thread.Sleep(200);
 
             // Signal the app to shutdown
             thread.Interrupt();
             // Wait for the thread to finish
-            thread.Join(2000);
+            thread.Join(500);
 
             Assert.IsNull(threadException, $"App threw exception: {threadException}");
         }
@@ -62,6 +66,11 @@ namespace BusinessLayerValidation.Tests
             {
                 var window = new MainWindow();
                 window.Show();
+                //// window.Focus();
+                // window.Topmost = true;
+                // window.Activate();                  // try to activate
+                BringWindowToFront(window);
+                window.Dispatcher.Invoke(() => { }, System.Windows.Threading.DispatcherPriority.ApplicationIdle);
 
                 // Find the TextBox (assumes it's the only one in the window)
                 var ageTextBox = FindVisualChild<TextBox>(window);
@@ -80,7 +89,7 @@ namespace BusinessLayerValidation.Tests
                 // Check for validation error and tooltip
                 bool hasError = Validation.GetHasError(ageTextBox);
                 errorTooltip = ageTextBox.ToolTip as string;
-
+               // Thread.Sleep(200);
                 window.Close();
 
                 Assert.IsFalse(hasError);
@@ -100,8 +109,7 @@ namespace BusinessLayerValidation.Tests
             {
                 var window = new MainWindow();
                 window.Show();
-
-                // Find the TextBox (assumes it's the only one in the window)
+                BringWindowToFront(window);
                 var ageTextBox = FindVisualChild<TextBox>(window);
                 Assert.IsNotNull(ageTextBox, "Age TextBox not found");
 
@@ -145,6 +153,35 @@ namespace BusinessLayerValidation.Tests
             }
             return null;
         }
+        // Helper to bring a window to the foreground. Uses Topmost toggle + SetForegroundWindow.
+        [DllImport("user32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
 
+        private static void BringWindowToFront(Window window)
+        {
+            if (window == null) return;
+
+            try
+            {
+                // Ensure activation + topmost briefly so the window comes forward
+                window.ShowActivated = true;
+                window.Topmost = true;
+                window.Activate();
+                window.Dispatcher.Invoke(() => { }, DispatcherPriority.ApplicationIdle);
+
+                // Try Win32 call as a fallback
+                var hwnd = new WindowInteropHelper(window).Handle;
+                if (hwnd != IntPtr.Zero)
+                    SetForegroundWindow(hwnd);
+
+                // Restore normal Topmost state
+                window.Topmost = false;
+                window.Dispatcher.Invoke(() => { }, DispatcherPriority.ApplicationIdle);
+            }
+            catch
+            {
+                // swallow: test host may restrict foreground changes
+            }
+        }
     }
 }

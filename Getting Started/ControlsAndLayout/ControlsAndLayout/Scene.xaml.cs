@@ -13,10 +13,14 @@ namespace ControlsAndLayout
     public partial class Scene
     {
         public bool RealTimeUpdate = true;
-
+        private bool _suppressSelectionHandling;
         private void HandleSelectionChanged(object sender, SelectionChangedEventArgs args)
         {
-            if (sender == null)
+            if (_suppressSelectionHandling) return;
+            try
+            {
+                _suppressSelectionHandling = true;
+                if (sender == null)
                 return;
             var lb = sender as ListBox;
             if (lb == null)
@@ -26,41 +30,23 @@ namespace ControlsAndLayout
             // collection as the details context.
             if (lb.SelectedItem != null)
                 Details.DataContext = lb.SelectedItem;
-            // Clear selection in the other ListBox so only the current expander's selection remains.
-            if (lb == LayoutListBox)
-            {
-                ClearListBoxSelection(ControlsListBox);
+                // Clear selection in the other ListBox so only the current expander's selection remains.
+                if (lb == LayoutListBox)
+                {
+                    if (ControlsListBox != null && ControlsListBox.SelectedIndex != -1)
+                    {
+                        ControlsListBox.SelectedIndex = -1;
+                    }
+                }
+                else if (lb == ControlsListBox)
+                {
+                    if (LayoutListBox != null && LayoutListBox.SelectedIndex != -1)
+                    {
+                        LayoutListBox.SelectedIndex = -1;
+                    }
+                }
             }
-            else if (lb == ControlsListBox)
-            {
-                ClearListBoxSelection(LayoutListBox);
-            }
-        }
-
-        private static void ClearListBoxSelection(ListBox other)
-        {
-            if (other == null)
-                return;
-
-            // Clear CollectionView current item (prevents implicit current item via XmlDataProvider)
-            var view = System.Windows.Data.CollectionViewSource.GetDefaultView(other.ItemsSource ?? other.Items);
-            view?.MoveCurrentToPosition(-1);
-
-            // Clear visual selection
-            other.SelectedIndex = -1;
-        }
-        //to clear the selection when the expander is expanded
-        private void Expander_Expanded(object sender, RoutedEventArgs e)
-        {
-            if (sender is not Expander expander)
-                return;
-            // If the expander's direct content is the ListBox, clear it.
-            if (expander.Content is ListBox lb)
-            {
-                var view = System.Windows.Data.CollectionViewSource.GetDefaultView(lb.ItemsSource ?? lb.Items);
-                view?.MoveCurrentToPosition(-1);
-                lb.SelectedIndex = -1;
-            }
+            finally { _suppressSelectionHandling = false; }
         }
         protected void HandleTextChanged(object sender, TextChangedEventArgs me)
         {
